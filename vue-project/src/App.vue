@@ -1,6 +1,20 @@
 <template>
   <div>
     <h1 @click="currnetColor = 'green'" :class="{ active : isActive}" :style="{ 'background-color': currnetColor}">{{ name }}</h1>
+
+    <button class="btn btn-dark m-2" @click="isLoggedIn = !isLoggedIn">Click Me!</button>
+    <div v-if=isLoggedIn>
+      <p>Successfully logged in</p>
+    </div>
+    <div v-else>
+      <p>Unable to login</p>
+    </div>
+    <!-- <div v-for="value in 10" :key="value-1">
+      {{ value }}
+    </div> -->
+    <div v-for="(person,index) in user " :key="index">
+      <span>{{person.name + " "+ person.age}}</span>
+    </div>
   </div>
 </template>
 
@@ -14,6 +28,22 @@ export default {
       name:"Aslan",
       currnetColor:"gold",
       isActive:true,
+      isLoggedIn : false,
+      user:[
+      { "name":"Aslan",
+        "surName":"Nazarov",
+        "age":19
+      },
+      { "name":"Nihad",
+        "surName":"Aliyev",
+        "age":19
+      },
+      { "name":"Yusif",
+        "surName":"Mansimov",
+        "age":19
+      }
+      ]
+
     }
   }
 }
