@@ -1,33 +1,34 @@
 <template>
   <div id="app">
-    <h1>{{ name + " " + surname}}</h1>
-    <button class="btn btn-success" @click="increment">(+)</button>
-    {{ count }}
-    <button class="btn btn-danger" @click="decrement">(-)</button>
-   <button class="btn btn-dark" @click="reset">Reset</button>
+    <AddProduct @add-prod="addProduct"/>
+    <ProductList @delete-prod="deleteProduct" :products="products"/>
   </div>
 </template>
 
 <script>
-
+import AddProduct from './Components/AddProduct.vue';
+import ProductList from './Components/ProductList.vue';
 export default {
   name: 'App',
-  data(){
+  components:{
+    AddProduct,ProductList
+  },
+  data() {
     return {
-      name: "Aslan",
-      surname:"Nazar",
-      count : 0
+      products: [
+        { id: 1, categoryId: 1, productName: "Laptop", quantityPerUnit: "Acer Laptop", unitPrice: 3000, unitInStock: 2 },
+        { id: 2, categoryId: 1, productName: "Mouse", quantityPerUnit: "Acer Mouse", unitPrice: 30, unitInStock: 4 },
+        { id: 3, categoryId: 1, productName: "Keyboard", quantityPerUnit: "Acer Keyboard", unitPrice: 300, unitInStock: 20 }
+      ]
     }
   },
-  methods:{
-    increment(){
-      this.count++
+  methods: {
+    deleteProduct(product){
+      this.products = this.products.filter(prod => prod.id !== product.id)
     },
-    decrement(){
-      this.count--
-    },
-    reset(){
-      this.count = 0
+    addProduct(product){
+      const newProduct = {...product}
+      this.products = {...this.products, newProduct}
     }
   }
 }
@@ -38,7 +39,6 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #104272;
   margin-top: 60px;
 }
